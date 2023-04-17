@@ -1,9 +1,9 @@
 export const modals = () => {
     const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string, closeClickOverlay = true) => {
         const trigger = document.querySelectorAll(triggerSelector),
-            modal = document.querySelector(modalSelector),
-            close = document.querySelector(closeSelector),
-            windows = document.querySelectorAll('[data-modal]');
+            modal = document.querySelector(modalSelector) as HTMLElement,
+            close = document.querySelector(closeSelector) as HTMLElement,
+            windows = document.querySelectorAll<HTMLElement>('[data-modal]')
 
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
@@ -11,7 +11,7 @@ export const modals = () => {
                     e.preventDefault();
                 }
 
-                windows.forEach(item => {
+                windows.forEach((item: HTMLElement) => {
                     item.style.display = 'none';
                 });
 
@@ -21,7 +21,7 @@ export const modals = () => {
         });
 
         const closeModal = () => {
-            windows.forEach(item => {
+            windows.forEach((item: HTMLElement) => {
                 item.style.display = 'none';
             });
 
@@ -55,12 +55,13 @@ export const modals = () => {
             })
 
             if (!display) {
-                document.querySelector(selector).style.display = 'block';
+                const modalType = document.querySelector(selector) as HTMLElement
+                modalType.style.display = 'block';
                 document.body.style.overflow = "hidden";
             }
         }, time);
     }
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
-    showModalByTime('.popup-consultation', 2000)
+    showModalByTime('.popup-consultation', 1000)
 };
