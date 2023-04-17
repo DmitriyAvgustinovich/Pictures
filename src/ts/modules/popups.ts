@@ -1,5 +1,19 @@
 export const modals = () => {
-    const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string, closeClickOverlay = true) => {
+    interface modalParams {
+        triggerSelector: string;
+        modalSelector: string;
+        closeSelector: string;
+        closeClickOverlay?: boolean;
+    }
+
+    const bindModal = (params: modalParams) => {
+        const {
+            triggerSelector,
+            modalSelector,
+            closeSelector,
+            closeClickOverlay = true,
+        } = params;
+
         const trigger = document.querySelectorAll(triggerSelector),
             modal = document.querySelector(modalSelector) as HTMLElement,
             close = document.querySelector(closeSelector) as HTMLElement,
@@ -61,7 +75,7 @@ export const modals = () => {
             }
         }, time);
     }
-    bindModal('.button-design', '.popup-design', '.popup-design .popup-close');
-    bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close');
+    bindModal({ triggerSelector: '.button-design', modalSelector: '.popup-design', closeSelector: '.popup-design .popup-close', closeClickOverlay: true });
+    bindModal({ triggerSelector: '.button-consultation', modalSelector: '.popup-consultation', closeSelector: '.popup-consultation .popup-close', closeClickOverlay: true });
     showModalByTime('.popup-consultation', 1000)
 };
