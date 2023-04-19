@@ -1,8 +1,7 @@
 export const forms = () => {
-
     const form = document.querySelectorAll('form')
     const inputs = document.querySelectorAll('input')
-    const uploads = document.querySelectorAll('[name="upload"]')
+    const uploads: NodeListOf<HTMLInputElement> = document.querySelectorAll('[name="upload"]')
 
     const message = {
         loading: 'Загрузка...',
@@ -35,19 +34,21 @@ export const forms = () => {
             item.value = ''
         })
         uploads.forEach(item => {
-            item.previousElementSibling.textContent = 'Файл не выбран'
+            if (item.previousElementSibling) {
+                item.previousElementSibling.textContent = 'Файл не выбран'
+            }
         })
     }
 
-    uploads.forEach(item => {
+    uploads.forEach((item: HTMLInputElement) => {
         item.addEventListener('input', () => {
-            console.log(item.files[0])
-            let dots;
-            const nameImgSplit = item.files[0].name.split('.')
+            const [fileName, fileExt] = (item.files as FileList)[0].name.split('.')
+            const dots = fileName.length > 6 ? '...' : '.'
+            const name = `${fileName.substring(0, 6)}${dots}${fileExt}`
 
-            nameImgSplit[0].length > 6 ? dots = '...' : dots = '.'
-            const name = nameImgSplit[0].substring(0, 6) + dots + nameImgSplit[1]
-            item.previousElementSibling.textContent = name
+            if (item.previousElementSibling) {
+                item.previousElementSibling.textContent = name
+            }
         })
     })
 
@@ -66,32 +67,24 @@ export const forms = () => {
                 item.style.display = 'none'
             }, 400)
 
-            let statusImg = document.createElement('img')
+            const statusImg = document.createElement('img')
             statusImg.setAttribute('src', message.spinner)
             statusImg.classList.add('animated', 'fadeInUp')
             statusMessage.appendChild(statusImg)
 
-            let textMessage = document.createElement('div')
+            const textMessage = document.createElement('div')
             textMessage.textContent = message.loading
             statusMessage.appendChild(textMessage)
 
             const formData = new FormData(item)
-            let api = 'https://windows-el7h.onrender.com/api/data'
-            item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question
-            console.log(api)
+            const api = item.closest('.popup-design') || item.classList.contains('calc_form') ? path.designer : path.question
 
-            let jsonData: Record<string, string> = {}
-            formData.forEach((value, key) => {
-                if (value instanceof File) {
-                    jsonData[key] = value.name
-                } else {
-                    jsonData[key] = value as string
-                }
-            })
+            const jsonData: Record<string, string> = {}
+
+            formData.forEach((value, key) => jsonData[key] = value instanceof File ? value.name : value)
 
             postData(api, jsonData)
-                .then(res => {
-                    console.log(res)
+                .then(() => {
                     statusImg.setAttribute('src', message.ok)
                     textMessage.textContent = message.success
                 })
