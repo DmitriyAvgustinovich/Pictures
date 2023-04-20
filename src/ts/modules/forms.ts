@@ -18,7 +18,7 @@ export const forms = () => {
     }
 
     const postData = async (url: string, data: any) => {
-        let res = await fetch(url, {
+        const res = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
