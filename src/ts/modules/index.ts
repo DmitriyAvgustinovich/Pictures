@@ -1,2 +1,6 @@
 export { modals } from "./popups"
 export { sliders } from "./sliders"
+export { forms } from "./forms"
+export { mask } from "./mask"
+export { checkTextInputs } from "./checkTextInputs"
+export { showMoreStyles } from "./showMoreStyles"
