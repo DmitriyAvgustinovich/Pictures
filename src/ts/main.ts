@@ -1,4 +1,4 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, pictureSize } from './modules';
+import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
     modals()
@@ -10,5 +10,6 @@ window.addEventListener('DOMContentLoaded', () => {
     checkTextInputs('[name="name"]')
     checkTextInputs('[name="message"]')
     calc({ size: '#size', material: '#material', options: '#options', promocode: '.promocode', result: '.calc-price' })
+    filter()
     pictureSize('.sizes-block')
 })
