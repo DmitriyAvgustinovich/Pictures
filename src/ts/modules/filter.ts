@@ -1,20 +1,20 @@
 export const filter = () => {
-    const menu = document.querySelector('.portfolio-menu') as HTMLElement,
-        items = menu.querySelectorAll('li'),
-        btnAll = menu.querySelector('.all') as HTMLElement,
-        btnLovers = menu.querySelector('.lovers') as HTMLElement,
-        btnChef = menu.querySelector('.chef') as HTMLElement,
-        btnGirl = menu.querySelector('.girl') as HTMLElement,
-        btnGuy = menu.querySelector('.guy') as HTMLElement,
-        btnGrandmother = menu.querySelector('.grandmother') as HTMLElement,
-        btnGranddad = document.querySelector('.granddad') as HTMLElement,
-        wrapper = document.querySelector('.portfolio-wrapper') as HTMLElement,
-        markAll = wrapper.querySelectorAll('.all'),
-        markGirl = wrapper.querySelectorAll('.girl'),
-        markLovers = wrapper.querySelectorAll('.lovers'),
-        markChef = wrapper.querySelectorAll('.chef'),
-        markGuy = wrapper.querySelectorAll('.guy'),
-        no = document.querySelector('.portfolio-no') as HTMLElement;
+    const menu = document.querySelector('.portfolio-menu') as HTMLElement;
+    const items = menu.querySelectorAll<HTMLLIElement>('li');
+    const btnAll = menu.querySelector<HTMLButtonElement>('.all')!;
+    const btnLovers = menu.querySelector<HTMLButtonElement>('.lovers')!;
+    const btnChef = menu.querySelector<HTMLButtonElement>('.chef')!;
+    const btnGirl = menu.querySelector<HTMLButtonElement>('.girl')!;
+    const btnGuy = menu.querySelector<HTMLButtonElement>('.guy')!;
+    const btnGrandmother = menu.querySelector<HTMLButtonElement>('.grandmother')!;
+    const btnGranddad = document.querySelector<HTMLButtonElement>('.granddad')!;
+    const wrapper = document.querySelector('.portfolio-wrapper') as HTMLElement;
+    const markAll = wrapper.querySelectorAll('.all');
+    const markGirl = wrapper.querySelectorAll('.girl');
+    const markLovers = wrapper.querySelectorAll('.lovers');
+    const markChef = wrapper.querySelectorAll('.chef');
+    const markGuy = wrapper.querySelectorAll('.guy');
+    const no = document.querySelector('.portfolio-no') as HTMLElement;
 
     const typeFilter = (markType: Element[]) => {
         markAll.forEach(mark => {
@@ -36,33 +36,17 @@ export const filter = () => {
         }
     };
 
-    btnAll.addEventListener('click', () => {
-        typeFilter(Array.from(markAll));
-    });
+    const mappedElems = [
+        { elem: btnAll, type: Array.from(markAll) },
+        { elem: btnLovers, type: Array.from(markLovers) },
+        { elem: btnChef, type: Array.from(markChef) },
+        { elem: btnGuy, type: Array.from(markGuy) },
+        { elem: btnGirl, type: Array.from(markGirl) },
+        { elem: btnGranddad, type: [] },
+        { elem: btnGrandmother, type: [] },
+    ];
 
-    btnLovers.addEventListener('click', () => {
-        typeFilter(Array.from(markLovers));
-    });
-
-    btnChef.addEventListener('click', () => {
-        typeFilter(Array.from(markChef));
-    });
-
-    btnGuy.addEventListener('click', () => {
-        typeFilter(Array.from(markGuy));
-    });
-
-    btnGirl.addEventListener('click', () => {
-        typeFilter(Array.from(markGirl));
-    });
-
-    btnGrandmother.addEventListener('click', () => {
-        typeFilter([]);
-    });
-
-    btnGranddad.addEventListener('click', () => {
-        typeFilter([]);
-    });
+    mappedElems.forEach(({ elem, type }) => (elem.onclick = () => typeFilter(type)));
 
     menu.addEventListener('click', (e) => {
         const target = e.target;
