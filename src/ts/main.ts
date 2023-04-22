@@ -1,4 +1,4 @@
-import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize } from './modules';
+import { modals, sliders, forms, mask, checkTextInputs, showMoreStyles, calc, filter, pictureSize, burger } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
     modals()
@@ -12,4 +12,5 @@ window.addEventListener('DOMContentLoaded', () => {
     calc({ size: '#size', material: '#material', options: '#options', promocode: '.promocode', result: '.calc-price' })
     filter()
     pictureSize('.sizes-block')
+    burger('.burger-menu', '.burger')
 })
