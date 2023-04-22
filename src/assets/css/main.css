@@ -30,6 +30,7 @@
 * {
   box-sizing: border-box;
   outline: none;
+  scroll-behavior: smooth;
 }
 html {
   font-size: 10px;
